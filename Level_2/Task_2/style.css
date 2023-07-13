@@ -1,0 +1,307 @@
+@font-face {
+  font-family: "frastha_light";
+  src: url(fonts/FrasthaLight.otf);
+}
+@font-face {
+  font-family: "Helvetica_Regular";
+  src: url(fonts/HelveticaNowDisplay-Regular.ttf);
+}
+@font-face {
+  font-family: "Helvetica_Medium";
+  src: url(fonts/HelveticaNowDisplay-Medium.ttf);
+}
+@font-face {
+  font-family: "Helvetica_bold";
+  src: url(fonts/HelveticaNowDisplay-Bold.ttf);
+}
+:root {
+  --theme-color: #002fff;
+  --background-color: #f2f2f2;
+  --styled-font: "frastha_light";
+  --font-size: 18px;
+}
+body {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background-color: var(--background-color);
+  font-family: "Helvetica_Bold";
+  padding: 0px 100px;
+}
+/* GENERAL STYLES */
+.c__blue {
+  color: var(--theme-color);
+  font-size: 12px;
+}
+.c__hidden {
+  color: #b4b4b4;
+}
+.flex__box {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.__medium {
+  font-family: "Helvetica_Medium";
+}
+.heading {
+  width: fit-content;
+  font-family: var(--styled-font);
+  margin: 60px auto;
+  font-size: 50px;
+}
+/* GENERAL STYLES */
+.nav__header {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px #dddddd;
+}
+.profile__section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--font-size);
+}
+.profile__section img {
+  width: 50px;
+}
+.intro__section {
+  width: 100%;
+  position: relative;
+  padding: 50px 0px;
+}
+.grid__box {
+  width: 100%;
+  position: relative;
+  display: grid;
+  margin: 0px auto;
+  grid-template-columns: 50% 45%;
+  gap: 5%;
+}
+.grid__box .grid__one .picture__box {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+.grid__box .grid__one .picture__box img {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+}
+.grid__box .grid__one .picture__box h1 {
+  font-family: var(--styled-font);
+  font-size: 70px;
+  writing-mode: vertical-rl;
+}
+.grid__box .grid__two {
+  padding-top: 150px;
+}
+
+.grid__box .grid__two .text__box {
+  width: 85%;
+}
+.grid__box .grid__two .text__box p {
+  line-height: 25px;
+}
+.grid__box .grid__two .text__box .intro__heading {
+  font-family: var(--styled-font);
+  font-size: 70px;
+  line-height: 75px;
+  margin: 30px 0px;
+}
+.quote {
+  width: 100%;
+  padding: 50px 0px;
+}
+.quote .grid__3 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.quote .grid__3 .grid_3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 70%;
+  margin: 0px auto;
+}
+.quote .grid__3 .grid_3 .quotation_mark {
+  width: 50px;
+  margin: 20px auto;
+}
+.quote .grid__3 .grid_3 p.quotes {
+  font-size: 20px;
+  font-style: italic;
+  font-family: "Helvetica_Regular";
+}
+
+/* STYLE FOR THE TIMELINE SECTION */
+.timeline {
+  padding: 50px 0px;
+}
+.timeline .time {
+  width: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 47% 6% 47%;
+  padding: 30px 0px;
+}
+
+.timeline .time .date {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.timeline .time:nth-child(odd) .date {
+  justify-content: flex-start;
+  order: 3;
+}
+.timeline .time .event {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: "Helvetica_Regular";
+  width: 300px;
+}
+.timeline .time:nth-child(odd) .event {
+  order: 1;
+  justify-content: flex-end;
+  margin-left: auto;
+  text-align: right;
+}
+.timeline .time .circle__line {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.timeline .time:nth-child(odd) .circle__line {
+  order: 2;
+}
+.timeline .time .circle__line .circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: black;
+}
+.timeline .time .circle__line .line {
+  height: 100%;
+  width: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: black;
+}
+.timeline .first__time .circle__line .line {
+  height: 50%;
+  top: 50%;
+}
+.timeline .last__time .circle__line .line {
+  height: 50%;
+  bottom: 50%;
+}
+/* MEDIA QUARIES */
+@media screen and (max-width: 1330px) {
+  .grid__box .grid__two .text__box {
+    width: 100%;
+  }
+  .grid__box .grid__two {
+    padding-top: 100px;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .grid__box .grid__two {
+    padding-top: 10px;
+  }
+}
+@media screen and (max-width: 1100px) {
+  .grid__box {
+    width: 100%;
+    position: relative;
+    display: block;
+  }
+  .grid__box .grid__one {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .grid__box .grid__one .picture__box img {
+    position: relative;
+    width: 500px;
+    border-radius: 20px;
+  }
+  .grid__box .grid__one .picture__box .flex__box {
+    display: none;
+  }
+  .grid__box .grid__two {
+    padding-top: 50px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .timeline .time {
+    display: block;
+  }
+  .timeline .time .circle__line {
+    display: none;
+  }
+  .timeline .time .date {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .timeline .time .event {
+    display: block;
+    text-align: left;
+    margin: 0px;
+    width: 100%;
+  }
+  .timeline .time:nth-child(odd) .event {
+    display: block;
+    text-align: left;
+    margin: 0px;
+  }
+  .heading {
+    margin: 1px auto;
+  }
+}
+@media screen and (max-width: 800px) {
+  .grid__box .grid__one .picture__box img {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+  }
+  .grid__box .grid__one .picture__box {
+    width: 100%;
+    display: block;
+  }
+}
+@media screen and (max-width: 700px) {
+  .quote .grid__3 {
+    display: block;
+  }
+  .quote .grid__3 .grid_3 {
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 600px) {
+  body {
+    padding: 0px 30px;
+  }
+  .grid__box .grid__two .text__box .intro__heading {
+    font-size: 55px;
+    line-height: 55px;
+    margin: 18px 0px;
+  }
+  .quote .grid__3 .grid_3 .quotation_mark {
+    width: 50px;
+    margin: 20px auto;
+    margin-bottom: 0px;
+  }
+}

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>login page</title>
+    <link rel="stylesheet" href="/login.css" />
+  </head>
+  <body>
+    <div class="whole__screen">
+      <div class="main__container">
+        <a href="/">
+          <img src="/tripQuestLogo.png" alt="logo" class="logo"
+        /></a>
+        <form method="POST" action="/login">
+          <div class="line"></div>
+          <div class="input__container">
+            <label for="usermail">Email</label>
+            <input
+              type="mail"
+              placeholder="John.Doe@mail.com"
+              name="usermail"
+            />
+          </div>
+          <div class="line"></div>
+          <div class="input__container">
+            <label for="password">Password</label>
+            <input type="password" placeholder="***********" name="password" />
+          </div>
+          <div class="line"></div>
+          <button type="submit" class="submit__btn">Log in</button>
+        </form>
+        <p class="registration">
+          Don't yet have an account, we've got you.
+          <a href="/registration">Register Here</a>
+        </p>
+      </div>
+      <div class="free__part">
+        <img src="/Earth-01.png" alt="Earth-01" />
+      </div>
+    </div>
+  </body>
+</html>

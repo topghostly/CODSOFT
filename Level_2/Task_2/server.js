@@ -1,6 +1,7 @@
 const express = require("express");
 const mainRoutes = require("./routes/mainRoutes.js");
 const ejs = require("ejs");
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 
 const app = express();
@@ -25,6 +26,7 @@ mongoose
   });
 
 app.set("view engine", "ejs");
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("static"));
 

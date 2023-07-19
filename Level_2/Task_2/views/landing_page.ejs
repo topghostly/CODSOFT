@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="stylesheet" href="/landing-page.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test website</title>
+    <title><%= title %></title>
   </head>
   <body>
     <nav>
@@ -17,7 +17,11 @@
         <div class="link__container"><a href="#">Destination</a></div>
       </div>
       <div class="end__links">
+        <% if(user){ %>
+        <h3><%= user.data.name %></h3>
+        <% }else{ %>
         <a href="/login">Log in</a>
+        <% } %>
       </div>
     </nav>
     <section class="hero__section">
@@ -38,7 +42,7 @@
             <p>Cars</p>
           </div>
         </div>
-        <form action="" method="POST">
+        <form action="/search_result" method="GET">
           <div class="form__part">
             <div class="form__box">
               <div class="logo"></div>
@@ -182,7 +186,7 @@
               <div class="logo"></div>
               <div class="text">
                 <h3>From</h3>
-                <input type="date" id="datepicker" name="fromdate" />
+                <input type="date" id="datepicker" name="date" />
               </div>
             </div>
           </div>

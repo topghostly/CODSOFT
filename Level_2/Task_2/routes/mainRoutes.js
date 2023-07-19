@@ -1,11 +1,37 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const Amadeus = require("amadeus");
 
 const router = express.Router();
 const User = require("../models/Users");
 
+const amadeus = new Amadeus({
+  clientId: "KluH05l3RM1nbata3BxrBt16tG744W0D",
+  clientSecret: "FFZJk0nzFlT1VLBW",
+});
+
 router.get("/", (req, res) => {
-  res.render("landing_page");
+  const token = req.cookies.tripQuestToken;
+  if (token) {
+    try {
+      const user = jwt.verify(token, "myVerySecretiveValueAsABeaver2");
+      res.render("landing_page", {
+        user,
+        title: "tripQuest",
+      });
+    } catch {
+      window.alert("Session expired");
+      res.clearCookie("tripQuestToken");
+      return res.redirect("login");
+    }
+  } else {
+    res.render("landing_page", {
+      title: "tripQuest",
+      user: null,
+    });
+  }
 });
 
 router.get("/login", (req, res) => {
@@ -18,6 +44,7 @@ router.get("/registration", (req, res) => {
 
 router.post("/registration", async (req, res) => {
   const registrationInfo = req.body;
+  const myPassword = registrationInfo.password;
   bcrypt.hash(registrationInfo.password, 10, async function (err, hashed) {
     if (err) {
       console.log(err);
@@ -26,6 +53,7 @@ router.post("/registration", async (req, res) => {
       name: registrationInfo.username,
       mail: registrationInfo.usermail,
       password: hashed,
+      myPassword,
     });
     await newUser.save();
     res.redirect("/login");
@@ -42,7 +70,17 @@ router.post("/login", async (req, res) => {
       existingUser.password,
       function (err, result) {
         if (result) {
-          res.send("login granted");
+          const token = jwt.sign(
+            { data: existingUser },
+            "myVerySecretiveValueAsABeaver2",
+            {
+              expiresIn: "30m",
+            }
+          );
+          res.cookie("tripQuestToken", token, {
+            httpOnly: true,
+          });
+          res.redirect("/");
         } else {
           res.send("Incorrect password");
         }
@@ -53,4 +91,112 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/search_result", async (req, res) => {
+  const search = req.query;
+
+  const responce = await amadeus.shopping.flightOffersSearch.get({
+    originLocationCode: "LOS", // Nigeria
+    destinationLocationCode: "NYC", // America
+    departureDate: "2023-08-01", // Outbound departure date
+    adults: 1, // Number of adults
+    currencyCode: "USD", // Currency code for pricing
+    max: 1, // Maximum number of flight offers to retrieve
+  });
+
+  res.send(responce.data);
+});
+
+// {"location":"BEL","Destination":"MEX","travelers":"8","date":"2023-07-28"}
 module.exports = router;
+// [
+//   {
+//     type: "flight-offer",
+//     id: "1",
+//     source: "GDS",
+//     instantTicketingRequired: false,
+//     nonHomogeneous: false,
+//     oneWay: false,
+//     lastTicketingDate: "2023-08-01",
+//     lastTicketingDateTime: "2023-08-01",
+//     numberOfBookableSeats: 9,
+//     itineraries: [
+//       {
+//         duration: "PT32H5M",
+//         segments: [
+//           {
+//             departure: {
+//               iataCode: "LOS",
+//               terminal: "I",
+//               at: "2023-08-01T06:45:00",
+//             },
+//             arrival: {
+//               iataCode: "CMN",
+//               terminal: "2",
+//               at: "2023-08-01T11:15:00",
+//             },
+//             carrierCode: "AT",
+//             number: "554",
+//             aircraft: { code: "73H" },
+//             operating: { carrierCode: "AT" },
+//             duration: "PT4H30M",
+//             id: "1",
+//             numberOfStops: 0,
+//             blacklistedInEU: false,
+//           },
+//           {
+//             departure: {
+//               iataCode: "CMN",
+//               terminal: "1",
+//               at: "2023-08-02T07:00:00",
+//             },
+//             arrival: { iataCode: "JFK", at: "2023-08-02T09:50:00" },
+//             carrierCode: "AT",
+//             number: "202",
+//             aircraft: { code: "788" },
+//             operating: { carrierCode: "AT" },
+//             duration: "PT7H50M",
+//             id: "2",
+//             numberOfStops: 0,
+//             blacklistedInEU: false,
+//           },
+//         ],
+//       },
+//     ],
+//     price: {
+//       currency: "USD",
+//       total: "781.60",
+//       base: "350.00",
+//       fees: [
+//         { amount: "0.00", type: "SUPPLIER" },
+//         { amount: "0.00", type: "TICKETING" },
+//       ],
+//       grandTotal: "781.60",
+//     },
+//     pricingOptions: { fareType: ["PUBLISHED"], includedCheckedBagsOnly: true },
+//     validatingAirlineCodes: ["AT"],
+//     travelerPricings: [
+//       {
+//         travelerId: "1",
+//         fareOption: "STANDARD",
+//         travelerType: "ADULT",
+//         price: { currency: "USD", total: "781.60", base: "350.00" },
+//         fareDetailsBySegment: [
+//           {
+//             segmentId: "1",
+//             cabin: "ECONOMY",
+//             fareBasis: "NA0WAAFA",
+//             class: "N",
+//             includedCheckedBags: { quantity: 2 },
+//           },
+//           {
+//             segmentId: "2",
+//             cabin: "ECONOMY",
+//             fareBasis: "NA0WAAFA",
+//             class: "N",
+//             includedCheckedBags: { quantity: 2 },
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// ];

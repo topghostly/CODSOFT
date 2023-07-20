@@ -1,0 +1,155 @@
+@font-face {
+  font-family: "euclid-regular";
+  src: url(./fonts/Euclid-Circular-A\ Regular.ttf);
+}
+@font-face {
+  font-family: "euclid-medium";
+  src: url(./fonts/Euclid-Circular-A\ Medium.ttf);
+}
+@font-face {
+  font-family: "eucluid-semibold";
+  src: url(./fonts/Euclid-Circular-A\ SemiBold.ttf);
+}
+:root {
+  --theme-color: #1253a8;
+  --background-color: #f2f2f2;
+  --text-color: #1f1f1f;
+}
+body {
+  background-color: var(--background-color);
+  font-family: "euclid-medium";
+  color: var(--text-color);
+  width: calc(100vw - 18px);
+  padding: 0px;
+  margin: 0px;
+}
+section.nav__part {
+  position: relative;
+  max-width: 100%;
+  height: 100px;
+  background-color: var(--theme-color);
+  padding: 0px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--background-color);
+  font-family: "euclid-regular";
+}
+section.form__part {
+  width: 100%;
+}
+section.form__part .booking__box {
+  max-width: 100%;
+  padding: 30px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+section.form__part .booking__box form {
+  width: 100%;
+  display: flex;
+  height: fit-content;
+}
+section.form__part .booking__box form button {
+  width: 34px;
+  height: 70px;
+  margin: auto 0px;
+  border-radius: 60px;
+  border: none;
+  background-color: var(--theme-color);
+  display: grid;
+  place-content: center;
+  transition: all 0.2s ease-in-out;
+}
+section.form__part .booking__box form button:hover {
+  background-color: #f8f8f8;
+  border: solid 1px var(--theme-color);
+  transition: all 0.2s ease-in-out;
+}
+section.form__part .booking__box form button svg {
+  width: 15px;
+  color: var(--background-color);
+  height: fit-content;
+}
+section.form__part .booking__box form button:hover svg {
+  color: var(--theme-color);
+}
+section.form__part .booking__box form {
+  width: 900px;
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+section.form__part .booking__box form .form__box {
+  display: flex;
+  gap: 10px;
+}
+section.form__part .booking__box form .form__box .logo {
+  width: 27px;
+  height: 50px;
+  background-color: #e1e1e1;
+  border: solid 2px #d3d3d3;
+  margin: auto 0px;
+  border-radius: 100px;
+  display: grid;
+  place-content: center;
+}
+section.form__part .booking__box form .form__box .logo svg {
+  width: 17px;
+  height: fit-content;
+  color: rgb(90, 90, 90);
+}
+section.form__part .booking__box form .form__box .text h3 {
+  margin: 0px 0px 10px 0px;
+  font-size: 17px;
+}
+section.form__part .booking__box form .form__box .text select,
+section.form__part .booking__box form .form__box .text input {
+  display: inline-block;
+  padding: 8px 15px;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: "euclid-medium";
+  -moz-appearance: none;
+  color: rgb(78, 78, 78);
+  cursor: pointer;
+  width: 150px;
+}
+section.form__part .booking__box form .form__box .text select:focus,
+section.form__part .booking__box form .form__box .text input:focus {
+  outline: none;
+}
+section.form__part
+  .booking__box
+  form
+  .form__part
+  .form__box
+  .text
+  select
+  option {
+  padding: 8px;
+}
+section.main__content {
+  max-width: 100%;
+  padding: 0px 20px;
+}
+section.main__content .main__container {
+  display: grid;
+  grid-template-columns: 20% 78%;
+  gap: 2%;
+  height: 200vh;
+  margin-top: 2vw;
+}
+section.main__content .main__container .left {
+  background-color: #fbfbfb;
+  border-radius: 10px;
+}
+section.main__content .main__container .right {
+  background-color: #fbfbfb;
+  border-radius: 10px;
+}

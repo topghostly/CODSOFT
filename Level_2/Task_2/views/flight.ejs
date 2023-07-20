@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/flights.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flights</title>
+  </head>
+  <body>
+    <section class="nav__part">
+      <h1>tripQuest.</h1>
+      <div class="profile">
+        <h2>user</h2>
+      </div>
+    </section>
+
+    <section class="form__part">
+      <div class="booking__box">
+        <form action="/search_result" method="GET">
+          <div class="form__box">
+            <div class="text">
+              <h3>Location</h3>
+              <select name="location" id="country">
+                <option value="AFG">Afghanistan</option>
+                <option value="ALB">Albania</option>
+                <option value="DZA">Algeria</option>
+                <option value="ARG">Argentina</option>
+                <option value="AUS">Australia</option>
+                <option value="BGD">Bangladesh</option>
+                <option value="BEL">Belgium</option>
+                <option value="BRA">Brazil</option>
+                <option value="CAN">Canada</option>
+                <option value="CHN">China</option>
+                <option value="COL">Colombia</option>
+                <option value="EGY">Egypt</option>
+                <option value="FRA">France</option>
+                <option value="DEU">Germany</option>
+                <option value="IND">India</option>
+                <option value="IDN">Indonesia</option>
+                <option value="ITA">Italy</option>
+                <option value="JPN">Japan</option>
+                <option value="MEX">Mexico</option>
+                <option value="NLD">Netherlands</option>
+                <option value="NZL">New Zealand</option>
+                <option value="NGA">Nigeria</option>
+                <option value="RUS">Russia</option>
+                <option value="SAU">Saudi Arabia</option>
+                <option value="ZAF">South Africa</option>
+                <option value="KOR">South Korea</option>
+                <option value="ESP">Spain</option>
+                <option value="SWE">Sweden</option>
+                <option value="TUR">Turkey</option>
+                <option value="GBR">United Kingdom</option>
+                <option value="USA">United States</option>
+                <option value="ARE">United Arab Emirates</option>
+                <option value="AUT">Austria</option>
+                <option value="AZE">Azerbaijan</option>
+                <option value="BHR">Bahrain</option>
+                <option value="BGR">Bulgaria</option>
+                <option value="CAF">Central African Republic</option>
+                <option value="CZE">Czech Republic</option>
+                <option value="DNK">Denmark</option>
+                <option value="FIN">Finland</option>
+                <option value="GRC">Greece</option>
+                <option value="HUN">Hungary</option>
+                <option value="IRL">Ireland</option>
+                <option value="ISR">Israel</option>
+                <option value="JOR">Jordan</option>
+                <option value="KEN">Kenya</option>
+                <option value="LBN">Lebanon</option>
+                <option value="MYS">Malaysia</option>
+                <option value="MAR">Morocco</option>
+                <option value="PER">Peru</option>
+                <option value="PHL">Philippines</option>
+                <option value="POL">Poland</option>
+              </select>
+            </div>
+          </div>
+          <div class="form__box">
+            <div class="text">
+              <h3>Destination</h3>
+              <select name="Destination" id="country">
+                <option value="AFG">Afghanistan</option>
+                <option value="ALB">Albania</option>
+                <option value="DZA">Algeria</option>
+                <option value="ARG">Argentina</option>
+                <option value="AUS">Australia</option>
+                <option value="BGD">Bangladesh</option>
+                <option value="BEL">Belgium</option>
+                <option value="BRA">Brazil</option>
+                <option value="CAN">Canada</option>
+                <option value="CHN">China</option>
+                <option value="COL">Colombia</option>
+                <option value="EGY">Egypt</option>
+                <option value="FRA">France</option>
+                <option value="DEU">Germany</option>
+                <option value="IND">India</option>
+                <option value="IDN">Indonesia</option>
+                <option value="ITA">Italy</option>
+                <option value="JPN">Japan</option>
+                <option value="MEX">Mexico</option>
+                <option value="NLD">Netherlands</option>
+                <option value="NZL">New Zealand</option>
+                <option value="NGA">Nigeria</option>
+                <option value="RUS">Russia</option>
+                <option value="SAU">Saudi Arabia</option>
+                <option value="ZAF">South Africa</option>
+                <option value="KOR">South Korea</option>
+                <option value="ESP">Spain</option>
+                <option value="SWE">Sweden</option>
+                <option value="TUR">Turkey</option>
+                <option value="GBR">United Kingdom</option>
+                <option value="USA">United States</option>
+                <option value="ARE">United Arab Emirates</option>
+                <option value="AUT">Austria</option>
+                <option value="AZE">Azerbaijan</option>
+                <option value="BHR">Bahrain</option>
+                <option value="BGR">Bulgaria</option>
+                <option value="CAF">Central African Republic</option>
+                <option value="CZE">Czech Republic</option>
+                <option value="DNK">Denmark</option>
+                <option value="FIN">Finland</option>
+                <option value="GRC">Greece</option>
+                <option value="HUN">Hungary</option>
+                <option value="IRL">Ireland</option>
+                <option value="ISR">Israel</option>
+                <option value="JOR">Jordan</option>
+                <option value="KEN">Kenya</option>
+                <option value="LBN">Lebanon</option>
+                <option value="MYS">Malaysia</option>
+                <option value="MAR">Morocco</option>
+                <option value="PER">Peru</option>
+                <option value="PHL">Philippines</option>
+                <option value="POL">Poland</option>
+              </select>
+            </div>
+          </div>
+          <div class="form__box">
+            <div class="text">
+              <h3>Travelers</h3>
+              <select name="travelers" id="travelers">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+          </div>
+          <div class="form__box">
+            <div class="text">
+              <h3>From</h3>
+              <input type="date" id="datepicker" name="date" />
+            </div>
+          </div>
+          <button type="submit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+              width="800px"
+              height="800px"
+              viewBox="0 0 32 32"
+              version="1.1"
+            >
+              <title>search</title>
+              <desc>Created with Sketch Beta.</desc>
+              <defs></defs>
+              <g
+                id="Page-1"
+                stroke="none"
+                stroke-width="2"
+                fill="none"
+                fill-rule="evenodd"
+                sketch:type="MSPage"
+              >
+                <g
+                  id="Icon-Set"
+                  sketch:type="MSLayerGroup"
+                  transform="translate(-256.000000, -1139.000000)"
+                  fill="currentColor"
+                  stroke="currentColor"
+                  stroke-width="1"
+                >
+                  <path
+                    d="M269.46,1163.45 C263.17,1163.45 258.071,1158.44 258.071,1152.25 C258.071,1146.06 263.17,1141.04 269.46,1141.04 C275.75,1141.04 280.85,1146.06 280.85,1152.25 C280.85,1158.44 275.75,1163.45 269.46,1163.45 L269.46,1163.45 Z M287.688,1169.25 L279.429,1161.12 C281.591,1158.77 282.92,1155.67 282.92,1152.25 C282.92,1144.93 276.894,1139 269.46,1139 C262.026,1139 256,1144.93 256,1152.25 C256,1159.56 262.026,1165.49 269.46,1165.49 C272.672,1165.49 275.618,1164.38 277.932,1162.53 L286.224,1170.69 C286.629,1171.09 287.284,1171.09 287.688,1170.69 C288.093,1170.3 288.093,1169.65 287.688,1169.25 L287.688,1169.25 Z"
+                    id="search"
+                    sketch:type="MSShapeGroup"
+                  ></path>
+                </g>
+              </g>
+            </svg>
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <section class="main__content">
+      <div class="main__container">
+        <div class="left"></div>
+        <div class="right"></div>
+      </div>
+    </section>
+  </body>
+</html>

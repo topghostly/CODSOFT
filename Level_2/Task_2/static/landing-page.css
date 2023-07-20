@@ -1,193 +1,270 @@
-  @font-face {
-    font-family: "euclid-regular";
-    src: url(./fonts/Euclid-Circular-A\ Regular.ttf);
-  }
-  @font-face {
-    font-family: "euclid-medium";
-    src: url(./fonts/Euclid-Circular-A\ Medium.ttf);
-  }
-  @font-face {
-    font-family: "eucluid-semibold";
-    src: url(./fonts/Euclid-Circular-A\ SemiBold.ttf);
-  }
-  :root {
-    --theme-color: #1253a8;
-    --background-color: #f2f2f2;
-    --text-color: #1f1f1f;
-  }
-  body {
-    background-color: var(--background-color);
-    padding: 0px 200px;
-    font-family: "euclid-medium";
-    color: var(--text-color);
-  }
-  nav {
-    width: 100%;
-    display: flex;
-    height: 70px;
-    justify-content: space-between;
-    align-items: center;
-  }
-  nav img.logo {
-    width: 120px;
-  }
-  nav .mid__links {
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    height: 50px;
-  }
-  nav .mid__links .link__container {
-    position: relative;
-    padding: 10px 6px;
-    overflow: hidden;
-  }
-  nav .mid__links .link__container::before {
-    content: "";
-    position: absolute;
-    bottom: 0px;
-    border-radius: 20px;
-    left: 0;
-    text-decoration: none;
-    background-color: var(--theme-color);
-    width: 25px;
-    height: 4px;
-    transform: translateX(-100%);
-    transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
-  }
-  nav .mid__links .link__container:hover::before {
-    content: "";
-    position: absolute;
-    bottom: 0px;
-    border-radius: 20px;
-    left: 50%;
-    text-decoration: none;
-    background-color: var(--theme-color);
-    transform: translateX(-50%);
-    transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
-  }
-  nav .mid__links .link__container a {
-    position: relative;
-    text-decoration: none;
-    color: var(--text-color);
-    transition: all 0.2s ease-in-out;
-    overflow-x: hidden;
-    height: auto;
-    margin: 10px 0px;
-  }
-  nav .mid__links .link__container a:hover {
-    color: var(--theme-color);
-    transition: all 0.2s ease-in-out;
-  }
-  
-  nav .end__links a {
-    color: var(--background-color);
-    text-decoration: none;
-    padding: 8px 25px;
-    background-color: var(--theme-color);
-    font-family: "euclid-regular";
-    border-radius: 100px;
-  }
-  section.hero__section {
-    padding: 40px 0px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-  section.hero__section h1 {
-    font-size: 45px;
-    width: 500px;
-    text-align: center;
-  }
-  section.hero__section img.hero__img{
-    width: 82vw;
-  }
-  section.booking__field{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  section.booking__field .booking__box{
-    width: 800px;
-    padding: 30px;
-    background-color: #f8f8f8;
-    border-radius: 30px;
-    box-shadow: rgba(87, 87, 87, 0.078) 0px 7px 29px 0px;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-  }
-  section.booking__field .booking__box .nav__part{
-    position: relative;
-    margin: 0px auto;
-    height: 50px;
-    background-color: var(--background-color);
-    width: 500px;
-    border-radius: 100px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-  section.booking__field .booking__box .nav__part .container{
-    display: grid;
-    place-content: center;
-    height: 40px;
-    margin: auto 0px;
-    cursor: no-drop;
-    color: rgb(171, 171, 171);
-  }
-  section.booking__field .booking__box .nav__part .active{
-    color: white;
-    background-color: var(--theme-color);
-    border-radius: 100px;
-    cursor: pointer;
-  }
-  section.booking__field .booking__box form{
-    width: 100%;
-    display: flex;
-    height: fit-content;
-  }
-  section.booking__field .booking__box form button{
-    width: 35px;
-    height: 70px;
-    margin: auto 0px;
-    border-radius: 60px;
-    border: none;
-    background-color: var(--theme-color);
-    color: white;
-  
-  }
-  section.booking__field .booking__box form .form__part{
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-  }
-  section.booking__field .booking__box form .form__part .form__box .text h3{
-    margin: 0px 0px 15px 0px;
-    font-size: 17px;
-  }
-  section.booking__field .booking__box form .form__part .form__box .text select,
-  section.booking__field .booking__box form .form__part .form__box .text input{
-    display: inline-block;
-    padding: 8px 15px;
-    border: 1px solid #e1e1e1;
-    border-radius: 100px;
-    /* background-color: white; */
-    appearance: none;
-    -webkit-appearance: none;
-    font-family: "euclid-medium";
-    -moz-appearance: none;
-    color: rgb(78, 78, 78);
-    cursor: pointer;
-    width: 120px;
-  }
-  section.booking__field .booking__box form .form__part .form__box .text select:focus,
-  section.booking__field .booking__box form .form__part .form__box .text input:focus{
-    outline: none;
-  }
-  section.booking__field .booking__box form .form__part .form__box .text select option{
-    padding: 8px;
-  }
+@font-face {
+  font-family: "euclid-regular";
+  src: url(./fonts/Euclid-Circular-A\ Regular.ttf);
+}
+@font-face {
+  font-family: "euclid-medium";
+  src: url(./fonts/Euclid-Circular-A\ Medium.ttf);
+}
+@font-face {
+  font-family: "eucluid-semibold";
+  src: url(./fonts/Euclid-Circular-A\ SemiBold.ttf);
+}
+:root {
+  --theme-color: #1253a8;
+  --background-color: #f2f2f2;
+  --text-color: #1f1f1f;
+}
+body {
+  background-color: var(--background-color);
+  padding: 0px 200px;
+  font-family: "euclid-medium";
+  color: var(--text-color);
+}
+nav {
+  width: 100%;
+  display: flex;
+  height: 70px;
+  justify-content: space-between;
+  align-items: center;
+}
+nav img.logo {
+  width: 120px;
+}
+nav .mid__links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 50px;
+}
+nav .mid__links .link__container {
+  position: relative;
+  padding: 10px 6px;
+  overflow: hidden;
+}
+nav .mid__links .link__container::before {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  border-radius: 20px;
+  left: 0;
+  text-decoration: none;
+  background-color: var(--theme-color);
+  width: 25px;
+  height: 4px;
+  transform: translateX(-100%);
+  transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+nav .mid__links .link__container:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  border-radius: 20px;
+  left: 50%;
+  text-decoration: none;
+  background-color: var(--theme-color);
+  transform: translateX(-50%);
+  transition: all 0.3s cubic-bezier(0.39, 0.575, 0.565, 1);
+}
+nav .mid__links .link__container a {
+  position: relative;
+  text-decoration: none;
+  color: var(--text-color);
+  transition: all 0.2s ease-in-out;
+  overflow-x: hidden;
+  height: auto;
+  margin: 10px 0px;
+}
+nav .mid__links .link__container a:hover {
+  color: var(--theme-color);
+  transition: all 0.2s ease-in-out;
+}
+
+nav .end__links a {
+  color: var(--background-color);
+  text-decoration: none;
+  padding: 8px 25px;
+  background-color: var(--theme-color);
+  font-family: "euclid-regular";
+  border-radius: 100px;
+}
+section.hero__section {
+  padding: 40px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+section.hero__section h1 {
+  font-size: 45px;
+  width: 500px;
+  text-align: center;
+}
+section.hero__section img.hero__img {
+  width: 82vw;
+}
+section.booking__field {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  margin: 30px 0px;
+}
+section.booking__field h1 {
+  width: fit-content;
+  margin: 10px auto;
+  font-size: 41px;
+  text-align: center;
+}
+section.booking__field .booking__box {
+  width: 800px;
+  padding: 30px;
+  background-color: #f8f8f8;
+  border-radius: 30px;
+  box-shadow: rgba(87, 87, 87, 0.078) 0px 7px 29px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+section.booking__field .booking__box .nav__part {
+  position: relative;
+  margin: 0px auto;
+  height: 50px;
+  background-color: var(--background-color);
+  width: 500px;
+  border-radius: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+section.booking__field .booking__box .nav__part .container {
+  display: grid;
+  place-content: center;
+  height: 40px;
+  margin: auto 0px;
+  cursor: no-drop;
+  color: rgb(171, 171, 171);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-family: "euclid-regular";
+}
+section.booking__field .booking__box .nav__part .container svg {
+  width: 18px;
+  color: rgb(171, 171, 171);
+  height: fit-content;
+}
+section.booking__field .booking__box .nav__part .active {
+  color: white;
+  background-color: var(--theme-color);
+  border-radius: 100px;
+  cursor: pointer;
+}
+section.booking__field .booking__box .nav__part .active svg {
+  color: rgb(255, 255, 255);
+  height: fit-content;
+}
+section.booking__field .booking__box form {
+  width: 100%;
+  display: flex;
+  height: fit-content;
+}
+section.booking__field .booking__box form button {
+  width: 34px;
+  height: 70px;
+  margin: auto 0px;
+  border-radius: 60px;
+  border: none;
+  background-color: var(--theme-color);
+  display: grid;
+  place-content: center;
+  transition: all 0.2s ease-in-out;
+}
+section.booking__field .booking__box form button:hover {
+  background-color: #f8f8f8;
+  border: solid 1px var(--theme-color);
+  transition: all 0.2s ease-in-out;
+}
+section.booking__field .booking__box form button svg {
+  width: 15px;
+  color: var(--background-color);
+  height: fit-content;
+}
+section.booking__field .booking__box form button:hover svg {
+  color: var(--theme-color);
+}
+section.booking__field .booking__box form .form__part {
+  width: 100%;
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+section.booking__field .booking__box form .form__part .form__box {
+  display: flex;
+  gap: 10px;
+}
+section.booking__field .booking__box form .form__part .form__box .logo {
+  width: 27px;
+  height: 50px;
+  background-color: #e1e1e1;
+  border: solid 2px #d3d3d3;
+  margin: auto 0px;
+  border-radius: 100px;
+  display: grid;
+  place-content: center;
+}
+section.booking__field .booking__box form .form__part .form__box .logo svg {
+  width: 17px;
+  height: fit-content;
+  color: rgb(90, 90, 90);
+}
+section.booking__field .booking__box form .form__part .form__box .text h3 {
+  margin: 0px 0px 10px 0px;
+  font-size: 17px;
+}
+section.booking__field .booking__box form .form__part .form__box .text select,
+section.booking__field .booking__box form .form__part .form__box .text input {
+  display: inline-block;
+  padding: 8px 15px;
+  border: 1px solid #e1e1e1;
+  border-radius: 100px;
+  /* background-color: white; */
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: "euclid-medium";
+  -moz-appearance: none;
+  color: rgb(78, 78, 78);
+  cursor: pointer;
+  width: 120px;
+}
+section.booking__field
+  .booking__box
+  form
+  .form__part
+  .form__box
+  .text
+  select:focus,
+section.booking__field
+  .booking__box
+  form
+  .form__part
+  .form__box
+  .text
+  input:focus {
+  outline: none;
+}
+section.booking__field
+  .booking__box
+  form
+  .form__part
+  .form__box
+  .text
+  select
+  option {
+  padding: 8px;
+}

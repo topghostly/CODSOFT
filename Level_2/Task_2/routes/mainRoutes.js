@@ -22,7 +22,7 @@ router.get("/", (req, res) => {
         title: "tripQuest",
       });
     } catch {
-      window.alert("Session expired");
+      // window.prompt("Session expired");
       res.clearCookie("tripQuestToken");
       return res.redirect("login");
     }
@@ -44,16 +44,15 @@ router.get("/registration", (req, res) => {
 
 router.post("/registration", async (req, res) => {
   const registrationInfo = req.body;
-  const myPassword = registrationInfo.password;
   bcrypt.hash(registrationInfo.password, 10, async function (err, hashed) {
     if (err) {
       console.log(err);
     }
     const newUser = await new User({
-      name: registrationInfo.username,
+      firstname: registrationInfo.firstname,
+      lastname: registrationInfo.lastname,
       mail: registrationInfo.usermail,
       password: hashed,
-      myPassword,
     });
     await newUser.save();
     res.redirect("/login");
@@ -93,21 +92,52 @@ router.post("/login", async (req, res) => {
 
 router.get("/search_result", async (req, res) => {
   const search = req.query;
-
   const responce = await amadeus.shopping.flightOffersSearch.get({
-    originLocationCode: "LOS", // Nigeria
-    destinationLocationCode: "NYC", // America
-    departureDate: "2023-08-01", // Outbound departure date
-    adults: 1, // Number of adults
+    // originLocationCode: search.location, // Nigeria
+    // destinationLocationCode: search.Destination, // America
+    departureDate: search.date, // Outbound departure date
+    adults: search.travelers, // Number of adults
     currencyCode: "USD", // Currency code for pricing
     max: 1, // Maximum number of flight offers to retrieve
+    originLocationCode: "LOS", // Nigeria
+    destinationLocationCode: "NYC", // America
+    // departureDate: "2023-08-01", // Outbound departure date
+    // adults: 1, // Number of adults
+    // currencyCode: "USD", // Currency code for pricing
+    // max: 1, // Maximum number of flight offers to retrieve
   });
 
-  res.send(responce.data);
+  const offer = responce.data;
+  flightOffer = offer[0];
+  const departure = flightOffer.itineraries[0].segments[0].departure.iataCode;
+  const arrival = flightOffer.itineraries[0].segments[1].arrival.iataCode;
+  const carrier = `${flightOffer.itineraries[0].segments[0].carrierCode} ${flightOffer.itineraries[0].segments[0].number}`;
+  const duration = flightOffer.itineraries[0].duration;
+  const priceCurrency = flightOffer.price.currency;
+  const totalPrice = flightOffer.price.total;
+  const isRefundable =
+    flightOffer.travelerPricings[0].fareOption === "STANDARD" ? "Yes" : "No";
+  const hasChangePenalty =
+    flightOffer.travelerPricings[0].fareOption === "STANDARD" ? "Yes" : "No";
+
+  console.log("Departure:", departure);
+  console.log("Arrival:", arrival);
+  console.log("Carrier:", carrier);
+  console.log("Duration:", duration);
+  console.log("Price:", priceCurrency, totalPrice);
+  res.send(offer);
+
+  // res.send({
+  //   Departure: offer.itineraries.segments[0].departure.iataCode,
+  //   Duration: offer.itineraries.duration,
+  //   Arrival: offer.itineraries.segments[1].arrival.iataCode,
+  // });
 });
 
 // {"location":"BEL","Destination":"MEX","travelers":"8","date":"2023-07-28"}
+
 module.exports = router;
+
 // [
 //   {
 //     type: "flight-offer",

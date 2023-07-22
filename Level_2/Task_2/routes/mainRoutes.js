@@ -42,6 +42,50 @@ router.get("/registration", (req, res) => {
   res.render("registration");
 });
 
+router.get("/airport-lists", async (req, res) => {
+  const query = req.query.query;
+  // const apiUri = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${query}`;
+  // const options = {
+  //   headers: {
+  //     Authorization: "KluH05l3RM1nbata3BxrBt16tG744W0D", // Replace with your Amadeus API key
+  //   },
+  // };
+
+  // try {
+  //   const responce = await fetch(apiUri, options);
+  //   if (!responce.ok) {
+  //     console.log("Request failed");
+  //   }
+
+  //   const data = await responce.json();
+  //   console.log(data);
+  //   const airports = data.data.map((item) => item.name);
+  //   res.json(airports);
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: "Failed to fetch" });
+  // }
+  try {
+    const responce = await amadeus.referenceData.locations.get({
+      keyword: query,
+      subType: "AIRPORT,CITY",
+    });
+    const data = responce.data;
+    realData = [];
+    data.map((airports) => {
+      realData.push({
+        port: airports.detailedName,
+        code: airports.iataCode,
+      });
+    });
+    console.log(realData);
+    res.json(realData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "field to fetch" });
+  }
+});
+
 router.post("/registration", async (req, res) => {
   const registrationInfo = req.body;
   bcrypt.hash(registrationInfo.password, 10, async function (err, hashed) {
@@ -79,7 +123,12 @@ router.post("/login", async (req, res) => {
           res.cookie("tripQuestToken", token, {
             httpOnly: true,
           });
-          res.redirect("/");
+          const query = req.cookies.query;
+          if (query) {
+            res.redirect("/search_result");
+          } else {
+            res.redirect("/");
+          }
         } else {
           res.send("Incorrect password");
         }
@@ -91,41 +140,56 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/search_result", async (req, res) => {
-  const search = req.query;
-  const responce = await amadeus.shopping.flightOffersSearch.get({
-    // originLocationCode: search.location, // Nigeria
-    // destinationLocationCode: search.Destination, // America
-    departureDate: search.date, // Outbound departure date
-    adults: search.travelers, // Number of adults
-    currencyCode: "USD", // Currency code for pricing
-    max: 1, // Maximum number of flight offers to retrieve
-    originLocationCode: "LOS", // Nigeria
-    destinationLocationCode: "NYC", // America
-    // departureDate: "2023-08-01", // Outbound departure date
-    // adults: 1, // Number of adults
-    // currencyCode: "USD", // Currency code for pricing
-    // max: 1, // Maximum number of flight offers to retrieve
-  });
+  const query = req.cookies.query;
+  let search;
+  if (query) {
+    search = query;
+    console.log(query);
+    res.clearCookie("query");
+  } else {
+    search = req.query;
+  }
+  const token = req.cookies.tripQuestToken;
+  if (token) {
+    try {
+      const responce = await amadeus.shopping.flightOffersSearch.get({
+        originLocationCode: "LOS", // Nigeria
+        destinationLocationCode: "NYC", // America
+        departureDate: search.date, // Outbound departure date
+        adults: 1, // Number of adults
+        currencyCode: "USD", // Currency code for pricing
+        max: 3, // Maximum number of flight offers to retrieve
+      });
+      const offer = responce.data;
+      res.send(offer);
+    } catch (error) {
+      res.send(error);
+    }
+  } else {
+    res.cookie("query", search, {
+      httpOnly: true,
+    });
+    res.render("login");
+  }
 
-  const offer = responce.data;
-  flightOffer = offer[0];
-  const departure = flightOffer.itineraries[0].segments[0].departure.iataCode;
-  const arrival = flightOffer.itineraries[0].segments[1].arrival.iataCode;
-  const carrier = `${flightOffer.itineraries[0].segments[0].carrierCode} ${flightOffer.itineraries[0].segments[0].number}`;
-  const duration = flightOffer.itineraries[0].duration;
-  const priceCurrency = flightOffer.price.currency;
-  const totalPrice = flightOffer.price.total;
-  const isRefundable =
-    flightOffer.travelerPricings[0].fareOption === "STANDARD" ? "Yes" : "No";
-  const hasChangePenalty =
-    flightOffer.travelerPricings[0].fareOption === "STANDARD" ? "Yes" : "No";
+  // flightOffer = offer[0];
+  // const departure = flightOffer.itineraries[0].segments[0].departure.iataCode;
+  // const arrival = flightOffer.itineraries[0].segments[1].arrival.iataCode;
+  // const carrier = `${flightOffer.itineraries[0].segments[0].carrierCode} ${flightOffer.itineraries[0].segments[0].number}`;
+  // const duration = flightOffer.itineraries[0].duration;
+  // const priceCurrency = flightOffer.price.currency;
+  // const totalPrice = flightOffer.price.total;
+  // const isRefundable =
+  //   flightOffer.travelerPricings[0].fareOption === "STANDARD" ? "Yes" : "No";
+  // const hasChangePenalty =
+  //   flightOffer.travelerPricings[0].fareOption === "STANDARD" ? "Yes" : "No";
 
-  console.log("Departure:", departure);
-  console.log("Arrival:", arrival);
-  console.log("Carrier:", carrier);
-  console.log("Duration:", duration);
-  console.log("Price:", priceCurrency, totalPrice);
-  res.send(offer);
+  // console.log("Departure:", departure);
+  // console.log("Arrival:", arrival);
+  // console.log("Carrier:", carrier);
+  // console.log("Duration:", duration);
+  // console.log("Price:", priceCurrency, totalPrice);
+  // res.send(offer);
 
   // res.send({
   //   Departure: offer.itineraries.segments[0].departure.iataCode,

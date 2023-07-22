@@ -129,7 +129,15 @@
               </div>
               <div class="text">
                 <h3>Location</h3>
-                <select id="countrySelect" name="location">
+                <input
+                  type="text"
+                  class="airports"
+                  name="Location"
+                  placeholder="Enter nearest airport"
+                  list="data-list"
+                />
+                <datalist class="fetched__list" id="data-list"></datalist>
+                <!-- <select id="countrySelect" name="location">
                   <option value="AFG">Afghanistan</option>
                   <option value="ALB">Albania</option>
                   <option value="DZA">Algeria</option>
@@ -221,7 +229,7 @@
                   <option value="VNM">Vietnam</option>
                   <option value="YEM">Yemen</option>
                   <option value="ZWE">Zimbabwe</option>
-                </select>
+                </select> -->
               </div>
             </div>
             <div class="form__box">
@@ -460,4 +468,31 @@
       </div>
     </section>
   </body>
+  <script>
+    const inputFields = document.querySelectorAll(".airports");
+    inputFields.forEach((field) => {
+      field.addEventListener("input", async () => {
+        const input = field.value.trim();
+        if (input.length > 2) {
+          const responce = await fetch(`/airport-lists?query=${input}`);
+          const data = await responce.json();
+          console.log(data);
+          const fetchedList = document.querySelector(".fetched__list");
+          fetchedList.innerHTML = "";
+
+          // for (const port of data) {
+          //   const listOption = document.createElement("option");
+          //   listOption.value = port;
+          //   fetchedList.appendChild(listOption);
+          // }
+          data.map((airports) => {
+            console.log(airports);
+            const listOption = document.createElement("option");
+            listOption.value = airports.port;
+            fetchedList.appendChild(listOption);
+          });
+        }
+      });
+    });
+  </script>
 </html>

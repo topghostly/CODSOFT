@@ -11,7 +11,6 @@ const amadeus = new Amadeus({
   clientId: "KluH05l3RM1nbata3BxrBt16tG744W0D",
   clientSecret: "FFZJk0nzFlT1VLBW",
 });
-
 router.get("/", (req, res) => {
   const token = req.cookies.tripQuestToken;
   if (token) {
@@ -40,50 +39,6 @@ router.get("/login", (req, res) => {
 
 router.get("/registration", (req, res) => {
   res.render("registration");
-});
-
-router.get("/airport-lists", async (req, res) => {
-  const query = req.query.query;
-  // const apiUri = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${query}`;
-  // const options = {
-  //   headers: {
-  //     Authorization: "KluH05l3RM1nbata3BxrBt16tG744W0D", // Replace with your Amadeus API key
-  //   },
-  // };
-
-  // try {
-  //   const responce = await fetch(apiUri, options);
-  //   if (!responce.ok) {
-  //     console.log("Request failed");
-  //   }
-
-  //   const data = await responce.json();
-  //   console.log(data);
-  //   const airports = data.data.map((item) => item.name);
-  //   res.json(airports);
-  // } catch (error) {
-  //   console.error(error);
-  //   res.status(500).json({ error: "Failed to fetch" });
-  // }
-  try {
-    const responce = await amadeus.referenceData.locations.get({
-      keyword: query,
-      subType: "AIRPORT,CITY",
-    });
-    const data = responce.data;
-    realData = [];
-    data.map((airports) => {
-      realData.push({
-        port: airports.detailedName,
-        code: airports.iataCode,
-      });
-    });
-    console.log(realData);
-    res.json(realData);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "field to fetch" });
-  }
 });
 
 router.post("/registration", async (req, res) => {
@@ -152,13 +107,14 @@ router.get("/search_result", async (req, res) => {
   const token = req.cookies.tripQuestToken;
   if (token) {
     try {
+      console.log(search);
       const responce = await amadeus.shopping.flightOffersSearch.get({
-        originLocationCode: "LOS", // Nigeria
-        destinationLocationCode: "NYC", // America
+        originLocationCode: search.Location, // Nigeria
+        destinationLocationCode: search.Destination, // America
         departureDate: search.date, // Outbound departure date
-        adults: 1, // Number of adults
+        adults: search.travelers, // Number of adults
         currencyCode: "USD", // Currency code for pricing
-        max: 3, // Maximum number of flight offers to retrieve
+        max: 10, // Maximum number of flight offers to retrieve
       });
       const offer = responce.data;
       res.send(offer);

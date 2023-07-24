@@ -143,15 +143,14 @@ section.form__part
 }
 .blue {
   font-size: 14px;
-  margin-bottom: 3px;
   font-family: "eucluid-semibold";
   color: #0f57f1;
-  margin-top: 20px;
 }
 .thin {
   font-family: "euclid-regular";
-  margin-top: 3px;
+  margin-top: 0px;
   font-size: 10px;
+  margin-bottom: 2px;
 }
 section.main__content {
   max-width: 100%;
@@ -238,9 +237,20 @@ section.main__content
   .main
   .airline__name {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+  flex-direction: column;
   font-family: "eucluid-semibold";
+}
+section.main__content
+  .main__container
+  .right
+  .flight__container
+  .flight
+  .main
+  .airline__name
+  .vg {
+  color: black;
 }
 section.main__content
   .main__container
@@ -481,4 +491,13 @@ section.main__content
   place-content: center;
   text-decoration: none;
   border-radius: 4px;
+}
+section.main__content
+  .main__container
+  .right
+  .flight__container
+  .flight
+  .price
+  .extra {
+  margin-top: 20px;
 }

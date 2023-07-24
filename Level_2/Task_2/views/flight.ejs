@@ -169,11 +169,12 @@
                 <div class="air__name">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="#000000"
-                    width="800px"
-                    height="800px"
+                    fill="currentColor"
+                    width="27px"
+                    height="27px"
                     viewBox="0 0 32 32"
                     version="1.1"
+                    class="vg"
                   >
                     <title>plane</title>
                     <path
@@ -218,11 +219,13 @@
                 >
                   View Deal
                 </a>
-                <% if(flight.Refundable){ %>
-                <p class="blue thin">Fee is Refundable</p>
-                <% } %> <% if(flight.ChangePenalty){ %>
-                <p class="blue thin">Change Penalty is attached</p>
-                <% } %>
+                <div class="extra">
+                  <% if(flight.isRefundable){ %>
+                  <p class="blue thin">Fee is Refundable</p>
+                  <% } %> <% if(flight.hasChangePenalty){ %>
+                  <p class="blue thin">Change Penalty is attached</p>
+                  <% } %>
+                </div>
               </div>
             </div>
             <% } %>

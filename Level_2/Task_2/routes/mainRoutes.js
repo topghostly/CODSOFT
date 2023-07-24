@@ -116,150 +116,61 @@ router.get("/search_result", async (req, res) => {
       return res.redirect("login");
     }
     try {
-      // const response = await amadeus.shopping.flightOffersSearch.get({
-      //   originLocationCode: search.Location, // Nigeria
-      //   destinationLocationCode: search.Destination, // America
-      //   departureDate: search.date, // Outbound departure date
-      //   adults: search.travelers, // Number of adults
-      //   currencyCode: "NGN", // Currency code for pricing
-      //   max: 8, // Maximum number of flight offers to retrieve
-      // });
-      // const offer = response.data;
-      // const dataList = [];
+      const response = await amadeus.shopping.flightOffersSearch.get({
+        originLocationCode: search.Location, // Nigeria
+        destinationLocationCode: search.Destination, // America
+        departureDate: search.date, // Outbound departure date
+        adults: search.travelers, // Number of adults
+        currencyCode: "NGN", // Currency code for pricing
+        max: 3, // Maximum number of flight offers to retrieve
+      });
+      const offer = response.data;
+      const dataList = [];
 
-      // for (const flight of offer) {
-      //   const carrier = flight.itineraries[0].segments[0].carrierCode;
-      //   const stopLocation = [];
-      //   const flightSegment = flight.itineraries[0].segments;
-      //   const numberOfStop = flightSegment.length - 1;
+      for (const flight of offer) {
+        const carrier = flight.itineraries[0].segments[0].carrierCode;
+        const stopLocation = [];
+        const flightSegment = flight.itineraries[0].segments;
+        const numberOfStop = flightSegment.length - 1;
 
-      //   const carrierResponse = await amadeus.referenceData.airlines.get({
-      //     airlineCodes: carrier,
-      //   });
-      //   const carrierData = carrierResponse.data;
+        const carrierResponse = await amadeus.referenceData.airlines.get({
+          airlineCodes: carrier,
+        });
+        const carrierData = carrierResponse.data;
 
-      //   for (let i = 0; i < numberOfStop; i++) {
-      //     stopLocation.push(flight.itineraries[0].segments[i].arrival.iataCode);
-      //   }
+        for (let i = 0; i < numberOfStop; i++) {
+          stopLocation.push(flight.itineraries[0].segments[i].arrival.iataCode);
+        }
 
-      //   const journeyStart = flight.itineraries[0].segments[0].departure.at;
-      //   const journeyStartDate = journeyStart.slice(0, 10);
-      //   const journeyStartTime = journeyStart.slice(11, 16);
-      //   const journeyEnd =
-      //     flight.itineraries[0].segments[numberOfStop].arrival.at;
-      //   const journeyEndDate = journeyEnd.slice(0, 10);
-      //   const journeyEndTime = journeyEnd.slice(11, 16);
-      // const isRefundable =
-      //   flight.travelerPricings[0].fareOption === "STANDARD" ? true : false;
-      // const hasChangePenalty =
-      //   flight.travelerPricings[0].fareOption === "STANDARD" ? true : false;
+        const journeyStart = flight.itineraries[0].segments[0].departure.at;
+        const journeyStartDate = journeyStart.slice(0, 10);
+        const journeyStartTime = journeyStart.slice(11, 16);
+        const journeyEnd =
+          flight.itineraries[0].segments[numberOfStop].arrival.at;
+        const journeyEndDate = journeyEnd.slice(0, 10);
+        const journeyEndTime = journeyEnd.slice(11, 16);
+        const isRefundable =
+          flight.travelerPricings[0].fareOption === "STANDARD" ? true : false;
+        const hasChangePenalty =
+          flight.travelerPricings[0].fareOption === "STANDARD" ? true : false;
 
-      //   dataList.push({
-      //     departure: flight.itineraries[0].segments[0].departure.iataCode,
-      //     arrival:
-      //       flight.itineraries[0].segments[numberOfStop].arrival.iataCode,
-      //     carrier: carrierData[0].businessName,
-      //     duration: flight.itineraries[0].duration,
-      //     numberOfStop,
-      //     stopLocation,
-      //     journeyStartDate,
-      //     journeyStartTime,
-      //     journeyEndDate,
-      //     journeyEndTime,
-      //     price: flight.price.total,
-      //     Refundable,
-      //     ChangePenalty,
-      // })
-      const dataList = [
-        {
-          departure: "LHR",
-          arrival: "LOS",
-          carrier: "TAAG Angola Airlines",
-          duration: "PT30H20M",
-          numberOfStop: 2,
-          stopLocation: ["MAD", "LAD"],
-          journeyStart: "2023-07-28T17:10:00",
-          journeyEnd: "2023-07-29T23:30:00",
-          price: "548609.00",
-        },
-        {
-          departure: "LHR",
-          arrival: "LOS",
-          carrier: "TAAG Angola Airlines",
-          duration: "PT31H40M",
-          numberOfStop: 2,
-          stopLocation: ["MAD", "LAD"],
-          journeyStart: "2023-07-28T15:50:00",
-          journeyEnd: "2023-07-29T23:30:00",
-          price: "548609.00",
-        },
-        {
-          departure: "LHR",
-          arrival: "LOS",
-          carrier: "TURKISH AIRLINES",
-          duration: "PT12H25M",
-          numberOfStop: 1,
-          stopLocation: ["IST"],
-          journeyStart: "2023-07-28T06:45:00",
-          journeyEnd: "2023-07-28T19:10:00",
-          price: "600994.00",
-        },
-        {
-          departure: "LHR",
-          arrival: "LOS",
-          carrier: "TURKISH AIRLINES",
-          duration: "PT21H",
-          numberOfStop: 1,
-          stopLocation: ["IST"],
-          journeyStart: "2023-07-28T22:10:00",
-          journeyEnd: "2023-07-29T19:10:00",
-          price: "600994.00",
-        },
-        {
-          departure: "LHR",
-          arrival: "LOS",
-          carrier: "TURKISH AIRLINES",
-          duration: "PT24H5M",
-          numberOfStop: 1,
-          stopLocation: ["IST"],
-          journeyStart: "2023-07-28T19:05:00",
-          journeyEnd: "2023-07-29T19:10:00",
-          price: "600994.00",
-        },
-        {
-          departure: "LHR",
-          arrival: "LOS",
-          carrier: "TURKISH AIRLINES",
-          duration: "PT24H40M",
-          numberOfStop: 1,
-          stopLocation: ["IST"],
-          journeyStart: "2023-07-28T18:30:00",
-          journeyEnd: "2023-07-29T19:10:00",
-          price: "600994.00",
-        },
-        {
-          departure: "LHR",
-          arrival: "LOS",
-          carrier: "TURKISH AIRLINES",
-          duration: "PT26H30M",
-          numberOfStop: 1,
-          stopLocation: ["IST"],
-          journeyStart: "2023-07-28T16:40:00",
-          journeyEnd: "2023-07-29T19:10:00",
-          price: "600994.00",
-        },
-        {
-          departure: "LHR",
-          arrival: "LOS",
-          carrier: "TURKISH AIRLINES",
-          duration: "PT31H45M",
-          numberOfStop: 1,
-          stopLocation: ["IST"],
-          journeyStart: "2023-07-28T11:25:00",
-          journeyEnd: "2023-07-29T19:10:00",
-          price: "600994.00",
-        },
-      ];
+        dataList.push({
+          departure: flight.itineraries[0].segments[0].departure.iataCode,
+          arrival:
+            flight.itineraries[0].segments[numberOfStop].arrival.iataCode,
+          carrier: carrierData[0].businessName,
+          duration: flight.itineraries[0].duration,
+          numberOfStop,
+          stopLocation,
+          journeyStartDate,
+          journeyStartTime,
+          journeyEndDate,
+          journeyEndTime,
+          price: flight.price.total,
+          isRefundable,
+          hasChangePenalty,
+        });
+      }
       res.render("flight", {
         flights: dataList,
         title: `${search.Location} - ${search.Destination} | tripQuest Booking Service`,
@@ -267,6 +178,7 @@ router.get("/search_result", async (req, res) => {
       });
     } catch (error) {
       res.clearCookie("query");
+      res.send({ error: error.message });
       res.redirect("/");
     }
   } else {

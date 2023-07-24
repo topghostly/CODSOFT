@@ -156,7 +156,7 @@ section.form__part
 section.main__content {
   max-width: 100%;
   padding: 0px 20px;
-  font-size: 18px;
+  font-size: 15px;
   font-family: "euclid-regular";
 }
 section.main__content .main__container {
@@ -193,7 +193,7 @@ section.main__content .main__container .left .results p {
   margin: 0;
 }
 section.main__content .main__container .left .results p span {
-  font-size: 22px;
+  font-size: 20px;
 }
 section.main__content .main__container .left .price__calculator {
   padding: 0px 20px;
@@ -227,7 +227,7 @@ section.main__content .main__container .right .flight__container .flight {
 }
 section.main__content .main__container .right .flight__container .flight .main {
   display: grid;
-  grid-template-columns: 16% 2% 82%;
+  grid-template-columns: 16% 7% 77%;
   padding: 20px;
 }
 section.main__content
@@ -237,8 +237,9 @@ section.main__content
   .flight
   .main
   .airline__name {
-  display: grid;
-  place-content: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-family: "eucluid-semibold";
 }
 section.main__content
@@ -399,6 +400,27 @@ section.main__content
   .destination
   .time {
   font-family: "euclid-regular";
+}
+section.main__content
+  .main__container
+  .right
+  .flight__container
+  .flight
+  .main
+  .timeline
+  .location
+  .date,
+section.main__content
+  .main__container
+  .right
+  .flight__container
+  .flight
+  .main
+  .timeline
+  .destination
+  .date {
+  font-size: 10px;
+  text-align: center;
 }
 section.main__content
   .main__container

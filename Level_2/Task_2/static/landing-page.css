@@ -80,13 +80,52 @@ nav .mid__links .link__container a:hover {
   transition: all 0.2s ease-in-out;
 }
 
-nav .end__links a {
+nav .end__links a.login {
   color: var(--background-color);
   text-decoration: none;
   padding: 8px 25px;
   background-color: var(--theme-color);
   font-family: "euclid-regular";
   border-radius: 100px;
+}
+nav .end__links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+nav .end__links .cart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+nav .end__links .cart .counter {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background-color: red;
+  display: grid;
+  place-content: center;
+  position: absolute;
+  top: 75%;
+  left: 70%;
+  pointer-events: none;
+}
+nav .end__links .cart .counter p {
+  color: white;
+  font-size: 9px;
+  margin: 0;
+}
+nav .end__links .cart svg {
+  width: 30px;
+  transition: all 0.2s ease-in-out;
+  color: var(--text-color);
+  cursor: pointer;
+}
+nav .end__links svg:hover {
+  color: var(--theme-color);
+  transition: all 0.2s ease-in-out;
 }
 section.hero__section {
   padding: 40px 0px;

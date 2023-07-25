@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const Amadeus = require("amadeus");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 const router = express.Router();
 const User = require("../models/Users");
@@ -12,14 +13,23 @@ const amadeus = new Amadeus({
   clientId: "KluH05l3RM1nbata3BxrBt16tG744W0D",
   clientSecret: "FFZJk0nzFlT1VLBW",
 });
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   const token = req.cookies.tripQuestToken;
   if (token) {
     try {
       const user = jwt.verify(token, "myVerySecretiveValueAsABeaver2");
+      try {
+        const userDetails = await User.findById(user.data._id);
+        const bookings = await Booking.find({ user: { $eq: userDetails._id } });
+        var bookingsAmount = bookings.length;
+      } catch (error) {
+        console.log(error);
+        console.log("An error occured when getting all bookings");
+      }
       res.render("landing_page", {
         user,
         title: "tripQuest",
+        bookingsAmount,
       });
     } catch {
       // window.prompt("Session expired");
@@ -243,6 +253,25 @@ router.get("/save-ticket", async (req, res) => {
       }
     } catch (error) {
       res.redirect("login");
+    }
+  }
+});
+
+router.get("/booking/cart", async (req, res) => {
+  const token = req.cookies.tripQuestToken;
+  if (token) {
+    try {
+      const user = jwt.verify(token, "myVerySecretiveValueAsABeaver2");
+      const userDetails = await User.findById(user.data._id);
+      const bookings = await Booking.find({ user: { $eq: userDetails._id } });
+      res.render("cart", {
+        user,
+        bookings,
+        title: `${user.data.firstname} Booking details • tripQuest`,
+      });
+    } catch (error) {
+      console.log(error);
+      console.log("An error occured");
     }
   }
 });

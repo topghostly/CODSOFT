@@ -10,6 +10,10 @@
   font-family: "eucluid-semibold";
   src: url(./fonts/Euclid-Circular-A\ SemiBold.ttf);
 }
+@font-face {
+  font-family: "Aspergit";
+  src: url(./fonts/Aspergit-Bold.otf);
+}
 :root {
   --theme-color: #1253a8;
   --background-color: #f2f2f2;
@@ -471,9 +475,10 @@ section.main__content
   .flight
   .price
   h3 {
-  font-size: 16px;
+  font-size: 19px;
   text-align: right;
   margin-bottom: 4px;
+  font-family: "Aspergit";
 }
 section.main__content
   .main__container

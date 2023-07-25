@@ -6,6 +6,7 @@ const Amadeus = require("amadeus");
 
 const router = express.Router();
 const User = require("../models/Users");
+const Booking = require("../models/booking");
 
 const amadeus = new Amadeus({
   clientId: "KluH05l3RM1nbata3BxrBt16tG744W0D",
@@ -99,7 +100,6 @@ router.get("/search_result", async (req, res) => {
   let search;
   if (query) {
     search = query;
-    console.log(query);
     res.clearCookie("query");
   } else {
     search = req.query;
@@ -154,6 +154,8 @@ router.get("/search_result", async (req, res) => {
         const hasChangePenalty =
           flight.travelerPricings[0].fareOption === "STANDARD" ? true : false;
 
+        const gateNo = flight.itineraries[0].segments[0].departure.terminal;
+
         dataList.push({
           departure: flight.itineraries[0].segments[0].departure.iataCode,
           arrival:
@@ -169,6 +171,8 @@ router.get("/search_result", async (req, res) => {
           price: flight.price.total,
           isRefundable,
           hasChangePenalty,
+          gateNo,
+          flightCode: flight.itineraries[0].segments[0].aircraft.code,
         });
       }
       res.render("flight", {
@@ -189,7 +193,91 @@ router.get("/search_result", async (req, res) => {
   }
 });
 
+router.get("/booking-deal", (req, res) => {
+  const token = req.cookies.tripQuestToken;
+  if (token) {
+    try {
+      const user = jwt.verify(token, "myVerySecretiveValueAsABeaver2");
+
+      const query = req.query;
+      console.log(query);
+      res.render("booking", {
+        data: query,
+        title: `${query.departure} - ${query.arrival} booking review`,
+        user,
+      });
+    } catch (error) {
+      res.redirect("login");
+    }
+  } else {
+    res.redirect("login");
+  }
+});
+router.get("/save-ticket", async (req, res) => {
+  const token = req.cookies.tripQuestToken;
+  if (token) {
+    try {
+      const user = jwt.verify(token, "myVerySecretiveValueAsABeaver2");
+      const query = req.query;
+
+      try {
+        const newBooking = await new Booking({
+          daparture: query.daparture,
+          arrival: query.arrival,
+          carrier: query.carrier,
+          duration: query.duration,
+          journeyStartDate: query.journeyStartDate,
+          journeyStartTime: query.journeyStartTime,
+          journeyEndDate: query.journeyEndDate,
+          journeyEndTime: query.journeyEndTime,
+          price: query.price,
+          gateNo: query.gateNo,
+          flightCode: query.flightCode,
+          user: user.data._id,
+        });
+        await newBooking.save();
+        res.redirect("/");
+      } catch (error) {
+        console.error(error);
+        res.redirect("/");
+      }
+    } catch (error) {
+      res.redirect("login");
+    }
+  }
+});
+
 module.exports = router;
+
+// newInfo = {
+//   departure: 'LOS',
+//   arrival: 'LAX',
+//   carrier: 'RWANDAIR',
+//   duration: 'PT30H50M',
+//   stopLocation: 'KGL,DOH',
+//   journeyStartDate: '2023-07-28',
+//   journeyStartTime: '15:30',
+//   journeyEndDate: '2023-07-29',
+//   journeyEndTime: '14:20',
+//   price: '795588.00',
+//   gateNo: 'I',
+//   flightCode: '332'
+// }
+
+// jwtResponce = {
+//   data: {
+//     _id: '64bc31e648cbbc5f94af4188',
+//     firstname: 'Odun',
+//     lastname: 'Kadiri',
+//     mail: 'odun@gmail.com',
+//     password: '$2a$10$0bcJ069ZbN8loB1aqJfx3O/4KWOsqEZd8S2PWeur6eeHC/VNr9mHG',
+//     createdAt: '2023-07-22T19:45:42.985Z',
+//     updatedAt: '2023-07-22T19:45:42.985Z',
+//     __v: 0
+//   },
+//   iat: 1690316114,
+//   exp: 1690317914
+// }
 
 // flightOffer = offer[0];
 // const departure =

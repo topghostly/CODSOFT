@@ -3,12 +3,12 @@ const mainRoutes = require("./routes/mainRoutes.js");
 const ejs = require("ejs");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const app = express();
 const port = process.env.PORT || 1234;
 
-const dbUri =
-  "mongodb+srv://Ayinla:Hucrux0327@agentsite.aimurix.mongodb.net/tripQuest?retryWrites=true&w=majority";
+const dbUri = `mongodb+srv://Ayinla:${process.env.MONGOOSE_PASSWORD}@agentsite.aimurix.mongodb.net/tripQuest?retryWrites=true&w=majority`;
 
 mongoose
   .connect(dbUri, {

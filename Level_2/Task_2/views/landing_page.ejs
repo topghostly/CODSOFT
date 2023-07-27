@@ -40,7 +40,9 @@
               </g>
             </svg>
           </a>
+          <% if(bookingsAmount > 0){ %>
           <div class="counter"><p><%= bookingsAmount %></p></div>
+          <% } %>
         </div>
         <h3><%= user.data.firstname %> <%= user.data.lastname %></h3>
         <% }else{ %>
@@ -54,7 +56,7 @@
     </section>
 
     <section class="booking__field">
-      <h1>Where to next, <% if(user){ %> <%= user.data.firstname %> <% }%>?</h1>
+      <h1>Where to next<% if(user){ %>, <%= user.data.firstname %> <% }%>?</h1>
       <div class="booking__box">
         <div class="nav__part">
           <div class="container active">

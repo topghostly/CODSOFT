@@ -3,11 +3,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
-  daparture: {
+  departure: {
     type: String,
     required: true,
   },
   arrival: {
+    type: String,
+    required: true,
+  },
+  carrier: {
     type: String,
     required: true,
   },
@@ -37,7 +41,7 @@ const bookingSchema = new Schema({
   },
   gateNo: {
     type: String,
-    required: true,
+    default: 1,
   },
   flightCode: {
     type: String,

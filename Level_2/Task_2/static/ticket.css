@@ -39,6 +39,11 @@ section.nav__part {
   color: var(--background-color);
   font-family: "euclid-regular";
 }
+section.nav__part a {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+}
 section.main__part {
   width: 100%;
   min-height: 80vh;

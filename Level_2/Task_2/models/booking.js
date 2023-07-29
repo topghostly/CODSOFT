@@ -1,5 +1,7 @@
+// Import all necessary packages
 const mongoose = require("mongoose");
 
+// Making a Schema for the bookings data
 const Schema = mongoose.Schema;
 
 const bookingSchema = new Schema({
@@ -53,6 +55,8 @@ const bookingSchema = new Schema({
   },
 });
 
+// Connecting Schema to database
 const Booking = mongoose.model("Booking", bookingSchema);
 
+// Exporting Schema
 module.exports = Booking;

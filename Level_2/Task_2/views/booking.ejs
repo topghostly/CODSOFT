@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./booking.css" />
-    <title><%= title %></title>
-  </head>
+  <%- include('./partial/head.ejs') %>
   <body>
     <section class="nav__part">
       <h1>tripQuest.</h1>
       <div class="profile">
-        <h4>user</h4>
+        <img src="/english-flag.png" alt="english-flag" class="nation" />
+        <h4><%= user.data.firstname %> <%= user.data.lastname %></h4>
       </div>
     </section>
+    <section></section>
 
     <section class="form__part">
       <div class="bank">

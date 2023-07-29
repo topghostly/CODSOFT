@@ -1,15 +1,23 @@
+// Import all necessary packages
 const express = require("express");
-const mainRoutes = require("./routes/mainRoutes.js");
 const ejs = require("ejs");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
+// Importing all routes from mainRoutes
+const mainRoutes = require("./routes/mainRoutes.js");
+
+// Initialising express
 const app = express();
+
+// Defining our port
 const port = process.env.PORT || 1234;
 
+// Mongoose URI to connect to database
 const dbUri = `mongodb+srv://Ayinla:${process.env.MONGOOSE_PASSWORD}@agentsite.aimurix.mongodb.net/tripQuest?retryWrites=true&w=majority`;
 
+// Connecting app to database
 mongoose
   .connect(dbUri, {
     useNewUrlParser: true,
@@ -25,9 +33,16 @@ mongoose
     console.log(err);
   });
 
+// Setting view engine to EJS for rendering dynamic content
 app.set("view engine", "ejs");
+
+// Enabling cookie parser to parse cookies in incoming request
 app.use(cookieParser());
+
 app.use(express.urlencoded({ extended: true }));
+
+// Get static files from "static directory"
 app.use(express.static("static"));
 
+// Using routes imported from mainRoutes
 app.use(mainRoutes);

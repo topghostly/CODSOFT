@@ -1,23 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="/landing-page.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
-  </head>
+  <%- include('./partial/head.ejs') %>
   <body>
     <nav>
       <img src="/tripQuestLogo.png" alt="Logo" class="logo" />
       <div class="mid__links">
-        <div class="link__container"><a href="#">Home</a></div>
+        <div class="link__container active"><a href="#">Home</a></div>
         <div class="link__container"><a href="#">About</a></div>
-        <div class="link__container"><a href="#">Plans</a></div>
-        <div class="link__container"><a href="#">Destination</a></div>
+        <div class="link__container"><a href="#plan">Plans</a></div>
       </div>
       <div class="end__links">
         <% if(user){ %>
+
         <div class="cart">
           <a href="/booking/cart">
             <svg
@@ -44,18 +38,50 @@
           <div class="counter"><p><%= bookingsAmount %></p></div>
           <% } %>
         </div>
-        <h3><%= user.data.firstname %> <%= user.data.lastname %></h3>
+        <div class="user__name">
+          <img src="/english-flag.png" alt="english-flag" class="nation" />
+          <h3><%= user.data.firstname %> <%= user.data.lastname %></h3>
+        </div>
+        <div class="logout">
+          <a href="/logout" class="Log">Log out</a>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18px"
+            height="19px"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M14 20H6C4.89543 20 4 19.1046 4 18L4 6C4 4.89543 4.89543 4 6 4H14M10 12H21M21 12L18 15M21 12L18 9"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+
         <% }else{ %>
         <a href="/login" class="login">Log in</a>
         <% } %>
       </div>
     </nav>
+    <% if(user) { %> <% if(error){ %>
+    <section class="error__handling">
+      <p><span>ERROR:</span> <%= error %></p>
+    </section>
+    <% } %> <% if(success){ %>
+    <section class="success__handling">
+      <p><span>SUCCESS:</span> <%= success %></p>
+    </section>
+    <% } %> <%}%>
+
     <section class="hero__section">
       <h1 class="hero__text">Find and Book a Great Vacation.</h1>
       <img src="/heroBackground.png" alt="hero__image" class="hero__img" />
     </section>
 
-    <section class="booking__field">
+    <section class="booking__field" id="plan">
       <h1>Where to next<% if(user){ %>, <%= user.data.firstname %> <% }%>?</h1>
       <div class="booking__box">
         <div class="nav__part">
@@ -315,13 +341,58 @@
         </form>
       </div>
     </section>
+    <section class="grid__pics">
+      <h1>Trending destinations</h1>
+      <div class="grid type__2">
+        <div>
+          <p>
+            Nigeria
+            <img class="flag" src="./images/nigeria.png" alt="nigeria" />
+          </p>
+        </div>
+        <div>
+          <p>
+            London
+            <img
+              class="flag"
+              src="./images/united-kingdom.png"
+              alt="united-kingdom"
+            />
+          </p>
+        </div>
+      </div>
+      <div class="grid type__3">
+        <div>
+          <p>
+            Paris <img class="flag" src="./images/france.png" alt="france" />
+          </p>
+        </div>
+        <div>
+          <p>
+            Canada <img class="flag" src="./images/canada.png" alt="canada" />
+          </p>
+        </div>
+        <div>
+          <p>Rome <img class="flag" src="./images/italy.png" alt="italy" /></p>
+        </div>
+      </div>
+    </section>
   </body>
   <script>
+    //
+    ////
+    // Code to get airports IATA code using the air-port-code API
+    ////
+    //
+
+    // Making a reference to teh input fields
     const inputFields = document.querySelectorAll(".airports");
     inputFields.forEach((field) => {
+      // Added an event listener to know when user starts typing
       field.addEventListener("input", async () => {
         const input = field.value.trim();
-        if (input.length > 2) {
+        if (input.length > 1) {
+          // Start fetching when typed letter is graeter than pne
           const responce = await fetch(
             `https://www.air-port-codes.com/api/v1/autocomplete?term=${input}`,
             {
@@ -330,15 +401,18 @@
                 Accept: "application/json",
                 "APC-Auth": "6c523f4eaa",
                 "APC-Auth-Secret": "21bf54ad24c9668",
-              },
+              }, // Fetch data from air-port-codes
             }
           );
+
+          // Covert responce to json format
           const datalist = await responce.json();
           const data = datalist.airports;
           const fetchedList = document.querySelector(".fetched__list");
           fetchedList.innerHTML = "";
 
           data.map((airports) => {
+            // Map date to datalist element
             if (airports.children) {
               const children = airports.children;
               children.forEach((child) => {

@@ -44,6 +44,22 @@ section.nav__part a {
   color: white;
   font-size: 20px;
 }
+a {
+  color: white;
+  text-decoration: none;
+}
+img.nation {
+  width: 25px;
+}
+section.nav__part .profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+}
+svg {
+  transform: rotate(45deg);
+}
 section.main__part {
   width: 100%;
   min-height: 80vh;
@@ -145,4 +161,10 @@ section.main__part .ticket__body .ticket__right .bank .part .text {
 }
 section.main__part .ticket__body .ticket__right {
   padding: 20px;
+}
+
+@media screen and (max-width: 750px) {
+  section.main__part .ticket__body {
+    transform-origin: center;
+  }
 }

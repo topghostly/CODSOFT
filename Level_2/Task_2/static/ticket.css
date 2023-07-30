@@ -164,7 +164,21 @@ section.main__part .ticket__body .ticket__right {
 }
 
 @media screen and (max-width: 750px) {
-  section.main__part .ticket__body {
-    transform-origin: center;
+  section.main__part {
+    width: 100%;
+    min-height: 80vh;
+    margin-top: 120px;
+  }
+  section.main__part .body__2 {
+    width: 280px;
+    height: 700px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    position: absolute;
+  }
+  section.main__part .body__2 .ticket__body {
+    /* transform-origin: center center; */
+    transform: translate(-30%, 80%) rotate(90deg);
+    background-color: transparent;
   }
 }

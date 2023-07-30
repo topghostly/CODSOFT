@@ -211,7 +211,7 @@ router.get("/search_result", async (req, res) => {
         departureDate: search.date,
         adults: search.travelers,
         currencyCode: "NGN",
-        max: 10,
+        max: 3,
       });
     } catch (error) {
       // Catch any error while fetching
@@ -243,7 +243,7 @@ router.get("/search_result", async (req, res) => {
         //// 1 second rest between each API call inorder to abide by the 1 request / 1000ms rule
         //// So the this process would be a little bit slow 😏
         //
-        await new Promise((breakRest) => setTimeout(breakRest, 1000));
+        // await new Promise((breakRest) => setTimeout(breakRest, 1000));
 
         const carrierResponse = await amadeus.referenceData.airlines.get({
           airlineCodes: carrier,

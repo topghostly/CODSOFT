@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partial/head.ejs') %>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./booking.css" />
+    <title><%= title %></title>
+  </head>
   <body>
     <section class="nav__part">
       <h1>tripQuest.</h1>
@@ -53,7 +58,7 @@
       <div class="bank">
         <div class="part">
           <div class="label">Total Price:</div>
-          <div class="text">₦<%= data.price %></div>
+          <div class="text price">₦<%= data.price %></div>
         </div>
       </div>
       <div class="btn__container">

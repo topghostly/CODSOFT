@@ -76,7 +76,7 @@ section.error__handling p span {
   box-shadow: rgba(87, 87, 87, 0.274) 0px 7px 29px 0px;
 }
 .whole__screen .main__container p.registration {
-  margin-top: 50px;
+  margin-top: 20px;
   font-size: 13px;
 }
 .whole__screen .main__container p.registration a {
@@ -118,6 +118,28 @@ section.error__handling p span {
   font-family: "euclid-medium";
   color: #555555;
   background-color: var(--background-color);
+}
+.whole__screen .main__container .socials {
+  width: 130px;
+  position: relative;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0px auto;
+  margin-top: 20px;
+}
+.whole__screen .main__container .socials .box {
+  border-radius: 10px;
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-content: center;
+  background-color: rgb(243, 243, 243);
+  border: solid 2px rgb(185, 185, 185);
+}
+.whole__screen .main__container .socials .box img {
+  width: 24px;
 }
 button.submit__btn {
   width: 60%;

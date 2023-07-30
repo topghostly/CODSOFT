@@ -10,6 +10,10 @@
   font-family: "eucluid-semibold";
   src: url(./fonts/Euclid-Circular-A\ SemiBold.ttf);
 }
+@font-face {
+  font-family: "Montserrat";
+  src: url(./fonts/Montserrat-SemiBold.ttf);
+}
 :root {
   --theme-color: #1253a8;
   --background-color: #f2f2f2;
@@ -91,4 +95,7 @@ section.form__part .bank .part .label {
   color: grey;
   font-family: "euclid-regular";
   margin-bottom: 5px;
+}
+.price {
+  font-family: "Montserrat";
 }

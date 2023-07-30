@@ -446,20 +446,17 @@ section.grid__pics .grid {
   width: 100%;
   margin: 0px auto;
 }
-section.grid__pics .grid div:nth-child(1) {
-  background-image: url(./lagos.jpg);
+section.grid__pics .grid div img.background {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: all 0.4s ease-in-out;
 }
-section.grid__pics .grid div:nth-child(2) {
-  background-image: url(./london.jpg);
-}
-section.grid__pics .type__3 div:nth-child(1) {
-  background-image: url(./paris.jpg);
-}
-section.grid__pics .type__3 div:nth-child(2) {
-  background-image: url(./canada.jpg);
-}
-section.grid__pics .type__3 div:nth-child(3) {
-  background-image: url(./rome.jpg);
+section.grid__pics .grid div:hover img.background {
+  scale: 1.1;
+  transition: all 0.4s ease-in-out;
 }
 section.grid__pics .type__2 {
   grid-template-columns: 49.5% 49.5%;
@@ -469,17 +466,10 @@ section.grid__pics .type__2 {
 section.grid__pics .type__2 div,
 section.grid__pics .type__3 div {
   height: 300px;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   border-radius: 5px;
   position: relative;
   transition: all 0.5s ease-in-out;
-}
-section.grid__pics .type__2 div:hover,
-section.grid__pics .type__3 div:hover {
-  background-size: 110%;
-  transition: all 0.5s ease-in-out;
+  overflow: hidden;
 }
 section.grid__pics .type__2 div::before,
 section.grid__pics .type__3 div::before {
@@ -487,8 +477,11 @@ section.grid__pics .type__3 div::before {
   position: absolute;
   width: 100%;
   height: 100%;
+  top: 0;
+  left: 0;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.207);
+  background-color: rgba(0, 0, 0, 0.208);
+  z-index: 1;
 }
 section.grid__pics .type__2 div p,
 section.grid__pics .type__3 div p {
@@ -497,6 +490,7 @@ section.grid__pics .type__3 div p {
   position: absolute;
   top: 20px;
   left: 20px;
+  z-index: 2;
 }
 .flag {
   width: 20px;
